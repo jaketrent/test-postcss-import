@@ -10,6 +10,14 @@ open localhost:8080
 
 ## Results
 
+### General Discovery & Observation
+
+`postcss-import` plugin is not required when on Webpack 5, on Node 15 and requesting a module with conditional exports.
+
+- Webpack 5 - required because it is the first version to support conditional exports
+- Node 15 - required because it is the first version to support conditional exports without a flag
+- exports - it's helpful on the module to avoid this plugin. Without it, use the plugin and the package.json `"style"` field. If the package is mixed js (under `"main"`) and css (under `"style"`), add `"style"` under the `"exports"` map.
+
 ### Webpack 5 (latest)
 
 When run through webpack5, the package `@pluralsight/ps-design-system-normalize` is imported. 
@@ -70,9 +78,13 @@ Error: Can't resolve '@pluralsight/ps-design-system-normalize' in '/Users/jaketr
 
 Removing the "main" field is extreme. Maybe just the "main" in tact (w/o the "style" and "exports") allows it to still work because in this case, it points to css, ie, `"main": "dist/index.css"`.
 
-### Try another package with mixed js and css
+### Another package with mixed js and css
 
 ie, @pluralsight/ps-design-system-core
+
+Once the "exports.style" is pointed at "./dist/index.css", it works. Before that, it falls over when loading CJS or ESM with syntax errors.
+
+Still doesn't require postcss-import in the stack. Wow.
 
 ### postcss-preset-env
 

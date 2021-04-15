@@ -1,4 +1,4 @@
-@import "@pluralsight/ps-design-system-normalize";
+@import '@pluralsight/ps-design-system-core';
 
 body {
   background: var(--psColorsBackgroundDark1);
