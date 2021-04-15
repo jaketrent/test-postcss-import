@@ -1,7 +1,11 @@
+const postcssPresetEnv = require('postcss-preset-env')
+
 module.exports = {
   plugins: [
-    [
-      "postcss-import",
-    ],
+    postcssPresetEnv({
+      importFrom: [
+        'node_modules/@pluralsight/ps-design-system-normalize/dist/index.css',
+      ],
+    }),
   ],
-};
+}

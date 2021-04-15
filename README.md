@@ -44,6 +44,26 @@ Webpack@4 produces the same result as webpack@5. See branch, `webpack4`.
 </style>
 ```
 
+### postcss-preset-env
+
+Added in `postcss-preset-env`, and it still works, output the same.
+
+### importFrom
+
+Added `importFrom` option to `postcss-preset-env` and got the custom properties replaced with values, and it still builds
+
+Output the same in normalize, but the values in styles.css are adjusted:
+
+```
+<style>body {
+  background: #0d0f12;
+  background: var(--psColorsBackgroundDark1);
+  color: hsla(0,0%,100%,0.95);
+  color: var(--psColorsTextIconHighOnDark);
+}
+</style>
+```
+
 ## Other experiments to try
 
-- Add other plugins, like postcss-preset-env
+- Add postcss-url
