@@ -44,6 +44,36 @@ Webpack@4 produces the same result as webpack@5. See branch, `webpack4`.
 </style>
 ```
 
+### Remove postcss-import
+
+Interestingly, the named package will import by packagename even without `postcss-import` in the `postcss.config.js` plugins list. Why is that? It didn't used to work w/o that plugin. Is this a webpack@5 capability?
+
+### No postcss-import on Webpack 
+
+Still works. I can't figure it out. Maybe it's from the new conditional exports on the normalize package?
+
+### No conditional exports on the package
+
+Removed in the node_modules/@pluralsight/ps-design-system-normalize/package.json. Nope, still imports by package name.
+
+### Remove the "style" field
+
+This should do it, right? Didn't work. This feels like the crazy pills moment. Something's wrong. Remove main field?
+
+### Remove the "main" field
+
+Well, that did it:
+
+```
+Error: Can't resolve '@pluralsight/ps-design-system-normalize' in '/Users/jaketrent/dev/test-postcss-import/src'
+```
+
+Removing the "main" field is extreme. Maybe just the "main" in tact (w/o the "style" and "exports") allows it to still work because in this case, it points to css, ie, `"main": "dist/index.css"`.
+
+### Try another package with mixed js and css
+
+ie, @pluralsight/ps-design-system-core
+
 ### postcss-preset-env
 
 Added in `postcss-preset-env`, and it still works, output the same.
@@ -66,4 +96,4 @@ Output the same in normalize, but the values in styles.css are adjusted:
 
 ## Other experiments to try
 
-- Add postcss-url
+How can I break this?
